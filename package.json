@@ -1,8 +1,9 @@
 {
 	"name": "secret-santa",
-	"version": "0.1.0",
+	"version": "0.0.1",
 	"private": true,
 	"dependencies": {
+		"mongoose": "^4.13.0",
 		"react": "^16.0.0",
 		"react-dom": "^16.0.0",
 		"react-scripts": "1.0.14"
