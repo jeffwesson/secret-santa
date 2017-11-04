@@ -1,0 +1,12 @@
+.TextInput {
+	margin: 10px;
+}
+
+.TextInput label {
+	margin-right: 5px;
+	text-transform: capitalize;
+}
+
+.TextInput input {
+	padding: 4px;
+}
