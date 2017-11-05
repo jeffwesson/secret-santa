@@ -50,7 +50,7 @@ class Form extends Component {
 
 	removeWish = index => {
 		this.setState(state => ({
-			list: state.list.filter((w, i) => i !== index)
+			list: state.list.filter((w, i) => i.toString() !== index)
 		}));
 	};
 

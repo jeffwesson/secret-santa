@@ -5,7 +5,7 @@ import WishListItemCss from './WishListItem.css';
 
 function WishListItem(props) {
 	const handleRemoveClick = e => {
-		props.removeWish(+e.target.getAttribute('index'));
+		props.removeWish(e.target.getAttribute('index'));
 	};
 	const verbs = ['need', 'want', 'love', 'like', 'use'];
 	return (
