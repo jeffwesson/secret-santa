@@ -71,7 +71,7 @@ class Form extends Component {
 			<div className='Form'>
 				<div className='TextWrapper'>
 					<TextInput name='name' handleChange={this.handleNameChange} />
-					<TextInput name='number' handleChange={this.handleNumberChange} />
+					<TextInput name='mobile-number' handleChange={this.handleNumberChange} />
 				</div>
 				<WishList
 					list={this.state.list}
@@ -80,7 +80,7 @@ class Form extends Component {
 					removeWish={this.removeWish} />
 				<div className='ButtonController'>
 					<Button id='add-wish' value='Add Wish' handleClick={this.addNewWish}/>
-					<Button id='submit-list' value='Submit List' handleClick={this.submitList} />
+					<Button id='submit-list' value='Send List' handleClick={this.submitList} />
 				</div>
 			</div>
 		)
