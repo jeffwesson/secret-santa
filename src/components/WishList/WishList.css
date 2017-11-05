@@ -1,0 +1,7 @@
+@media (max-width: 479px) {
+	.WishList {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+}

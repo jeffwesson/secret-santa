@@ -1,33 +1,26 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { hyphensToSpaces } from '../../lib/formatters';
+import SelectInputCss from './SelectInput.css'
 
-class OptionInput extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			value: ''
-		};
-	}
-
-	handleChange = e => {
-		this.setState({value: e.target.value});
+function OptionInput(props) {
+	const handleChange = e => {
+		props.handleChange(e.target.value, props.index);
 	};
 
-	render() {
-		const options = this.props.verbs.map(verb => (
-			<option>{verb}</option>
-		));
-		return (
-			<div className='OptionInput'>
-				<label htmlFor={this.props.name}>
-					{hyphensToSpaces(this.props.name)}
-				</label>
-				<select id={this.props.name} value={this.props.value} onChange={this.handleChange}>
-					{options}
-				</select>
-			</div>
-		);
-	}
+	const options = props.verbs.map((verb, i) => (
+		<option key={i}>{verb}</option>
+	));
+
+	return (
+		<div className='SelectInput'>
+			<label htmlFor={props.name}>
+				{hyphensToSpaces(props.name)}
+			</label>
+			<select id={props.name} value={props.value} onChange={handleChange}>
+				{options}
+			</select>
+		</div>
+	);
 }
 
 export default OptionInput;

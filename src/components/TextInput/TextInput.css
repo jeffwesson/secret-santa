@@ -1,12 +1,30 @@
 .TextInput {
 	margin: 10px;
+	display: flex;
+	flex-flow: row;
+	justify-content: center;
+	align-items: flex-start;
+	align-content: flex-start;
 }
 
 .TextInput label {
-	margin-right: 5px;
 	text-transform: capitalize;
+	font-size: 0.9rem;
+	color: grey;
 }
 
 .TextInput input {
 	padding: 4px;
+	font-size: 1.2rem;
+	border-top: none;
+	border-right: none;
+	border-bottom: 1px solid;
+	border-left: none;
+}
+
+@media (min-width: 320px) {
+	.TextInput {
+		flex-flow: column;
+		align-items: flex-start;
+	}
 }

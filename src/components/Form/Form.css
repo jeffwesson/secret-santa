@@ -1,0 +1,30 @@
+.Form {
+	display: flex;
+	flex-flow: column;
+	align-items: stretch;
+	max-width: 600px;
+}
+
+.TextWrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.ButtonController {
+	display: flex;
+	justify-content: space-around;
+}
+
+@media (min-width: 480px) {
+	.TextWrapper {
+		flex-direction: row;
+		justify-content: center;
+	}
+}
+
+@media (min-width: 600px) {
+	.Form {
+		margin: 0 auto;
+	}
+}

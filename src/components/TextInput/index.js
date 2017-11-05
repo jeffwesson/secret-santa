@@ -1,34 +1,24 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { hyphensToSpaces } from '../../lib/formatters';
 import TextInputCss from './TextInput.css';
 
-class TextInput extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			name: props.name
-			, value: ''
-		};
-	}
-
-	handleChange = e => {
-		this.setState({value: e.target.value});
+function TextInput(props) {
+	const handleChange = e => {
+		props.handleChange(e.target.value, props.index);
 	};
 
-	render() {
-		return (
-			<div className='TextInput'>
-				<label htmlFor={this.state.name}>
-					{hyphensToSpaces(this.state.name)}
-				</label>
-				<input
-					id={this.state.name}
-					type='text'
-					value={this.state.value}
-					onChange={this.handleChange} />
-			</div>
-		);
-	}
+	return (
+		<div className='TextInput'>
+			<label htmlFor={props.name}>
+				{hyphensToSpaces(props.name)}
+			</label>
+			<input
+				id={props.name}
+				type='text'
+				value={props.value}
+				onChange={handleChange} />
+		</div>
+	);
 }
 
 export default TextInput;

@@ -1,0 +1,64 @@
+.WishListItem {
+	border: none;
+	flex-direction: column;
+	margin-top: 1rem;
+	text-align: left;
+	position: relative;
+}
+
+.WishListItem .remove-wish {
+	font-size: 2.5rem;
+	position: absolute;
+	top: -10px;
+	right: 5px;
+	cursor: pointer;
+}
+
+.WishListItem .pronoun {
+	margin-left: 14px;
+	margin-bottom: 16px;
+	font-size: 1.2rem;
+}
+
+.WishListItem label {
+	display: none;
+}
+
+.WishListItem input {
+	width: 300px;
+}
+
+@media (min-width: 320px) {
+	.WishListItem input {
+		width: 250px;
+	}
+}
+
+@media (min-width: 480px) {
+	.WishListItem {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		background: white;
+		border: 1px solid rgb(212, 36, 38);
+		border-left-width: 10px; 
+		margin: 15px;
+	}
+
+	.WishListItem .pronoun {
+		margin-left: 14px;
+		margin-bottom: 16px;
+		display: flex;
+		align-items: flex-end;
+		font-size: 1.2rem;
+	}
+
+	.WishListItem label {
+		display: block;
+		font-size: 0.9rem;
+	}
+
+	.WishListItem input {
+		text-align: left;
+	}
+}
