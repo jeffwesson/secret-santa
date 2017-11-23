@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import TextInput from '../TextInput';
 import WishList from '../WishList';
 import Button from '../Button';
-import path from 'path';
 import { capitalize } from '../../utils';
 import FormCss from './Form.css';
 
@@ -74,7 +73,7 @@ class Form extends Component {
 
 	submitList = e => {
 		let xhr = new XMLHttpRequest();
-		xhr.open('POST', path.join(window.location.origin, 'api/v1/user'), true);
+		xhr.open('POST', '/api/v1/user', true);
 		xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 		xhr.onload = function() {
 			console.log(xhr.responseText);
