@@ -75,12 +75,14 @@ class Form extends Component {
 	submitList = e => {
 		e.preventDefault();
 
+		var self = this;
+
 		let xhr = new XMLHttpRequest();
 		xhr.open('POST', '/api/v1/user', true);
 		xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 		xhr.onload = function() {
 			if (xhr.status === 200) {
-				this.setState({
+				self.setState({
 					name: ''
 					, number: ''
 					, list: [
