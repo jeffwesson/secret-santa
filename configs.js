@@ -18,7 +18,8 @@ nconf.set('env', env);
 let port = nconf.get('PORT') || 3001;
 nconf.set('port', parseInt(port, 10));
 
-let dbUri = nconf.get('MONGO_URI')
+let dbUri = nconf.get('MONGODB_URI')
+	|| nconf.get('MONGO_URI')
 	|| nconf.get('MONGOHQ_URL')
 	|| nconf.get('MONGOLAB_URI')
 	|| nconf.get('mongoUrl')
