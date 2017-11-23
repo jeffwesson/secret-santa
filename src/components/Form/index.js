@@ -74,7 +74,7 @@ class Form extends Component {
 
 	submitList = e => {
 		let xhr = new XMLHttpRequest();
-		xhr.open('POST', path.join(window.location.origin, 'api/v1/user', true));
+		xhr.open('POST', path.join(window.location.origin, 'api/v1/user'), true);
 		xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 		xhr.onload = function() {
 			console.log(xhr.responseText);
