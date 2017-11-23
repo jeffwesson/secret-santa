@@ -22,4 +22,4 @@ yarn-error.log*
 
 # local
 _*
-.vscode/*
+.vscode
