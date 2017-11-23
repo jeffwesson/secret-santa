@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import swal from 'sweetalert2';
 import TextInput from '../TextInput';
 import WishList from '../WishList';
 import Button from '../Button';
@@ -72,15 +73,31 @@ class Form extends Component {
 	};
 
 	submitList = e => {
+		e.preventDefault();
+
 		let xhr = new XMLHttpRequest();
 		xhr.open('POST', '/api/v1/user', true);
 		xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 		xhr.onload = function() {
-			console.log(xhr.responseText);
+			if (xhr.status === 200) {
+				this.setState({
+					name: ''
+					, number: ''
+					, list: [
+						{ verb: 'need', item: '' }
+						, { verb: 'want', item: '' }
+						, { verb: 'love', item: '' }
+					]
+				});
+				swal({
+					title: 'Your list has been sent'
+					, type: 'success'
+					, showConfirmButton: false
+					, timer: 2000
+				});
+			}
 		}
 		xhr.send(JSON.stringify(this.state));
-
-		e.preventDefault();
 	};
 
 	render() {
