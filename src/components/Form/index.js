@@ -79,7 +79,13 @@ class Form extends Component {
 
 		const payload = Object.assign({}, this.state);
 
-		payload.list = payload.list.filter(wish => wish.item.trim().length());
+		payload.list = payload.list
+			.map(wish => {
+				wish.item = wish.item.trim();
+				return wish;
+			})
+			.filter(wish => wish.item.length)
+		;
 
 		let xhr = new XMLHttpRequest();
 		xhr.open('POST', '/api/v1/user', true);
