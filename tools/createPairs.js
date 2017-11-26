@@ -24,10 +24,6 @@ function getUsers(next) {
 			return next(err);
 		}
 
-		if (users.length % 2 !== 0) {
-			return next('There needs to be an even number of people.');
-		}
-
 		next(null, users.map(u => u._id.toString()));
 	});
 }
@@ -56,23 +52,66 @@ function savePairs(pairs, next) {
 function sendTexts(pairs, next) {
 	debug('sendTexts');
 	each(pairs, (pair, done) => {
-		let where = {
-			_id: {
-				$in: pair.map(id => mongoose.Types.ObjectId(id))
-			}
-		};
+		const wisherId = mongoose.Types.ObjectId(pair[0])
+			, secretSantaId = mongoose.Types.ObjectId(pair[1])
+		;
 
-		models.users.find(where).lean().exec((err, users) => {
-			each(composeTexts(users), (text, cb) => {
-				let { body, to, from } = text;
-				twilio.messages.create({ body, to, from })
-					.then(msg => {
-						debug(msg.sid);
-						cb(null);
-					});
-				;
-			}, err => done(err));
-		});
+		function getWisher(cb) {
+			debug('getWisher');
+			models.users.findById(wisherId, (err, wisher) => {
+				cb(err, { wisher });
+			});
+		}
+
+		function getSecretSanta(data, cb) {
+			debug('getSecretSanta');
+			let { wisher } = data;
+			models.users.findById(secretSantaId, (err, secretSanta) => {
+				cb(err, { secretSanta, wisher });
+			});
+		}
+
+		function composeText(data, cb) {
+			debug('composeText');
+			let body = `Ho ho ho!
+Santa needs your help with his many lists, could you take care of this one?
+
+${data.wisher.name} ${iterateList(data.wisher.list)}.`;
+
+			let from = '+15592037260';
+			let to = `+1${data.secretSanta.number}`;
+
+			function iterateList(list) {
+				return list.reduce((str, wish, i) => {
+					if (list.length === 1) {
+						str += `${wish.verb}s ${wish.item}`;
+					} else if (i + 1 === list.length) {
+						str += `and ${wish.verb}s ${wish.item}`;
+					} else {
+						str += `${wish.verb}s ${wish.item}, `;
+					}
+					return str;
+				}, '');
+			}
+
+			cb(null, { body, from, to });
+		}
+
+		function sendText(data, cb) {
+			debug('sendText');
+			let { body, from, to } = data;
+			twilio.messages.create({ body, from, to }).then(msg => {
+				debug(msg.sid);
+				cb(null);
+			});
+		}
+
+		waterfall([
+			getWisher
+			, getSecretSanta
+			, composeText
+			, sendText
+		], done);
 	}, err => next(err));
 }
 
@@ -90,33 +129,3 @@ waterfall([
 	, savePairs
 	, sendTexts
 ], finish);
-
-// helpers
-function composeTexts(users) {
-	const from = '+15592037260';
-	return users.reduce((texts, user, i) => {
-		const to = `+1${users[i ? 0 : 1].number}`
-			, body = `Ho ho ho!
-Santa needs your help with his many lists, could you take care of this one?
-
-${user.name} ${iterateList(user.list)}.`
-		;
-
-		texts.push({ body, to, from });
-
-		function iterateList(list) {
-			return list.reduce((str, wish, i) => {
-				if (list.length === 1) {
-					str += `${wish.verb}s ${wish.item}`;
-				} else if (i + 1 === list.length) {
-					str += `and ${wish.verb}s ${wish.item}`;
-				} else {
-					str += `${wish.verb}s ${wish.item}, `;
-				}
-				return str;
-			}, '');
-		}
-
-		return texts;
-	}, []);
-}

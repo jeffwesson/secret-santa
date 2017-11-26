@@ -99,6 +99,16 @@ class Form extends Component {
 				});
 			}
 		}
+
+		xhr.onerror = function() {
+			if (xhr.status === 500) {
+				swal({
+					title: 'Oops...'
+					, text: 'Something went wrong!'
+					, type: 'error'
+				});
+			}
+		}
 		xhr.send(JSON.stringify(this.state));
 	};
 

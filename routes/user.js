@@ -24,6 +24,7 @@ router.post('/', (req, res, next) => {
 		, (err, user) => {
 			if (err) {
 				debug(err);
+				res.status(500);
 				return next(err);
 			}
 
