@@ -4,7 +4,7 @@ import TextInputCss from './TextInput.css';
 
 function TextInput(props) {
 	const handleChange = e => {
-		props.handleChange(e.target.value.trim(), props.index);
+		props.handleChange(e.target.value, props.index);
 	};
 
 	return (

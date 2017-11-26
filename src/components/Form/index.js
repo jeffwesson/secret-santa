@@ -49,7 +49,6 @@ class Form extends Component {
 	};
 
 	handleItemChange = (item, index) => {
-		if (!item) return;
 		this.setState(state => ({
 			list: state.list.map((wish, i) => {
 				if (i === index) {
@@ -76,7 +75,11 @@ class Form extends Component {
 	submitList = e => {
 		e.preventDefault();
 
-		var self = this;
+		const self = this;
+
+		const payload = Object.assign({}, this.state);
+
+		payload.list = payload.list.filter(wish => wish.item.trim().length());
 
 		let xhr = new XMLHttpRequest();
 		xhr.open('POST', '/api/v1/user', true);
