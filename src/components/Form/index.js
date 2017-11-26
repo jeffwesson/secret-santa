@@ -113,7 +113,7 @@ class Form extends Component {
 				});
 			}
 		}
-		xhr.send(JSON.stringify(this.state));
+		xhr.send(JSON.stringify(payload));
 	};
 
 	render() {
