@@ -100,7 +100,6 @@ ${data.wisher.name} ${iterateList(data.wisher.list)}.`;
 		function sendText(data, cb) {
 			debug('sendText');
 			let { body, from, to } = data;
-			cb(null);
 			twilio.messages.create({ body, from, to }).then(msg => {
 				debug(msg.sid);
 				cb(null);
