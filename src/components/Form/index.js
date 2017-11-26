@@ -49,6 +49,7 @@ class Form extends Component {
 	};
 
 	handleItemChange = (item, index) => {
+		if (!item) return;
 		this.setState(state => ({
 			list: state.list.map((wish, i) => {
 				if (i === index) {
