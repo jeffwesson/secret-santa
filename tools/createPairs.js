@@ -100,10 +100,13 @@ ${data.wisher.name} ${iterateList(data.wisher.list)}.`;
 		function sendText(data, cb) {
 			debug('sendText');
 			let { body, from, to } = data;
-			twilio.messages.create({ body, from, to }).then(msg => {
-				debug(msg.sid);
-				cb(null);
-			});
+			debug(to)
+			debug(body)
+			cb(null);
+			// twilio.messages.create({ body, from, to }).then(msg => {
+			// 	debug(msg.sid);
+			// 	cb(null);
+			// });
 		}
 
 		waterfall([
