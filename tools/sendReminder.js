@@ -25,28 +25,27 @@ function getUser(next) {
 			debug(err);
 			return next(err);
 		}
-		debug(user)
 		next(null, user._id.toString());
 	});
 }
 
 function getPair(id, next) {
 	debug('getPair');
-	models.pairs.find({'pair.1': id}, (err, pair) => {
+	models.pairs.findOne({'pair.1': id}, (err, pair) => {
 		if (err || !pair) {
 			err = err || `No pair found with id: ${id}`;
 			debug(err);
 			return next(err);
 		}
-		next(null, [pair]);
+		next(null, [pair.pair]);
 	});
 }
 
 function sendTexts(pairs, next) {
 	debug('sendTexts');
 	each(pairs, (pair, done) => {
-		const wisherId = pair[0]
-			, secretSantaId = pair[1]
+		const wisherId = mongoose.Types.ObjectId(pair[0])
+			, secretSantaId = mongoose.Types.ObjectId(pair[1])
 		;
 
 		function getWisher(cb) {
