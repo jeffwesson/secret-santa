@@ -19,13 +19,14 @@ if (mongoose.connection.readyState !== 1) {
 function getUser(next) {
 	debug('getUser');
 	const number = process.argv[2];
-	models.users.find({ number }, (err, user) => {
+	models.users.findOne({ number }, (err, user) => {
 		if (err || !user) {
 			err = err || `No user found with phone number: ${number}`;
 			debug(err);
 			return next(err);
 		}
-		next(null, user._id.toString());
+		debug(user)
+		next(null, user._doc._id.toString());
 	});
 }
 
@@ -44,8 +45,8 @@ function getPair(id, next) {
 function sendTexts(pairs, next) {
 	debug('sendTexts');
 	each(pairs, (pair, done) => {
-		const wisherId = mongoose.Types.ObjectId(pair[0])
-			, secretSantaId = mongoose.Types.ObjectId(pair[1])
+		const wisherId = pair[0]
+			, secretSantaId = pair[1]
 		;
 
 		function getWisher(cb) {
