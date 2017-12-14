@@ -26,7 +26,7 @@ function getUser(next) {
 			return next(err);
 		}
 		debug(user)
-		next(null, user._doc._id.toString());
+		next(null, user._id.toString());
 	});
 }
 
