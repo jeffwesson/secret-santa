@@ -1,15 +1,14 @@
-const configs = require('../configs')
-	, debug = require('debug')('secret-santa:tools:generatePairs')
-	, each = require('async/each')
-	, models = require('../models')
-	, mongoose = require('mongoose')
-	, Twilio = require('twilio')
-	, waterfall = require('async/waterfall')
-;
+const configs = require('../configs');
+const debug = require('debug')('secret-santa:tools:generatePairs');
+const each = require('async/each');
+const models = require('../models');
+const mongoose = require('mongoose');
+const Twilio = require('twilio');
+const waterfall = require('async/waterfall');
 
 const twilio = new Twilio(
-	configs.get('TWILIO_ACCOUNT_SID')
-	, configs.get('TWILIO_AUTH_TOKEN')
+	configs.get('TWILIO_ACCOUNT_SID'),
+	configs.get('TWILIO_AUTH_TOKEN')
 );
 
 if (mongoose.connection.readyState !== 1) {
@@ -31,7 +30,7 @@ function getUser(next) {
 
 function getPair(id, next) {
 	debug('getPair');
-	models.pairs.findOne({'pair.1': id}, (err, pair) => {
+	models.pairs.findOne({ 'pair.1': id }, (err, pair) => {
 		if (err || !pair) {
 			err = err || `No pair found with id: ${id}`;
 			debug(err);
@@ -44,9 +43,8 @@ function getPair(id, next) {
 function sendTexts(pairs, next) {
 	debug('sendTexts');
 	each(pairs, (pair, done) => {
-		const wisherId = mongoose.Types.ObjectId(pair[0])
-			, secretSantaId = mongoose.Types.ObjectId(pair[1])
-		;
+		const wisherId = mongoose.Types.ObjectId(pair[0]);
+		const secretSantaId = mongoose.Types.ObjectId(pair[1]);
 
 		function getWisher(cb) {
 			debug('getWisher');
@@ -99,10 +97,10 @@ ${data.wisher.name} ${iterateList(data.wisher.list)}.`;
 		}
 
 		waterfall([
-			getWisher
-			, getSecretSanta
-			, composeText
-			, sendText
+			getWisher,
+			getSecretSanta,
+			composeText,
+			sendText
 		], done);
 	}, err => next(err));
 }
@@ -116,7 +114,7 @@ function finish(err) {
 }
 
 waterfall([
-	getUser
-	, getPair
-	, sendTexts
+	getUser,
+	getPair,
+	sendTexts
 ], finish);

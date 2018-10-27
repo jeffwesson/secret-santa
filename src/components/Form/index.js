@@ -4,18 +4,17 @@ import TextInput from '../TextInput';
 import WishList from '../WishList';
 import Button from '../Button';
 import { capitalize } from '../../utils';
-import FormCss from './Form.css';
 
 class Form extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			name: ''
-			, number: ''
-			, list: [
-				{ verb: 'need', item: '' }
-				, { verb: 'want', item: '' }
-				, { verb: 'love', item: '' }
+			name: '',
+			number: '',
+			list: [
+				{ verb: 'need', item: '' },
+				{ verb: 'want', item: '' },
+				{ verb: 'love', item: '' }
 			]
 		};
 	}
@@ -24,16 +23,14 @@ class Form extends Component {
 		name = name
 			.split(' ')
 			.map(n => capitalize(n))
-			.join(' ')
-		;
+			.join(' ');
 		this.setState({ name });
 	};
 
 	handleNumberChange = number => {
 		number = number
 			.replace(/^\+1/, '')
-			.replace(/\D/g, '')
-		;
+			.replace(/\D/g, '');
 		this.setState({ number });
 	};
 
@@ -84,38 +81,37 @@ class Form extends Component {
 				wish.item = wish.item.trim();
 				return wish;
 			})
-			.filter(wish => wish.item.length)
-		;
+			.filter(wish => wish.item.length);
 
 		let xhr = new XMLHttpRequest();
 		xhr.open('POST', '/api/v1/user', true);
 		xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
-		xhr.onload = function() {
+		xhr.onload = function () {
 			if (xhr.status === 200) {
 				self.setState({
-					name: ''
-					, number: ''
-					, list: [
-						{ verb: 'need', item: '' }
-						, { verb: 'want', item: '' }
-						, { verb: 'love', item: '' }
+					name: '',
+					number: '',
+					list: [
+						{ verb: 'need', item: '' },
+						{ verb: 'want', item: '' },
+						{ verb: 'love', item: '' }
 					]
 				});
 				swal({
-					title: 'Your list has been sent'
-					, type: 'success'
-					, showConfirmButton: false
-					, timer: 2000
+					title: 'Your list has been sent',
+					type: 'success',
+					showConfirmButton: false,
+					timer: 2000
 				});
 			}
 		}
 
-		xhr.onerror = function() {
+		xhr.onerror = function () {
 			if (xhr.status === 500) {
 				swal({
-					title: 'Oops...'
-					, text: 'Something went wrong!'
-					, type: 'error'
+					title: 'Oops...',
+					text: 'Something went wrong!',
+					type: 'error'
 				});
 			}
 		}
@@ -137,7 +133,7 @@ class Form extends Component {
 					handleVerbChange={this.handleVerbChange}
 					removeWish={this.removeWish} />
 				<div className='ButtonController'>
-					<Button id='add-wish' value='Add Wish' handleClick={this.addNewWish}/>
+					<Button id='add-wish' value='Add Wish' handleClick={this.addNewWish} />
 					<Button id='submit-list' value='Send List' handleClick={this.submitList} disabled={!isValid} />
 				</div>
 			</div>

@@ -1,6 +1,5 @@
 import React from 'react';
 import WishListItem from '../WishListItem';
-import WishListCss from './WishList.css';
 
 function WishList(props) {
 	const list = props.list.map((wish, i) => (
