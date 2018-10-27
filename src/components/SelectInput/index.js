@@ -1,6 +1,5 @@
 import React from 'react';
 import { hyphensToSpaces } from '../../utils';
-import SelectInputCss from './SelectInput.css'
 
 function OptionInput(props) {
 	const handleChange = e => {

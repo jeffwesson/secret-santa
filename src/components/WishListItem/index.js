@@ -1,7 +1,6 @@
 import React from 'react';
 import SelectInput from '../SelectInput';
 import TextInput from '../TextInput';
-import WishListItemCss from './WishListItem.css';
 
 function WishListItem(props) {
 	const handleRemoveClick = e => {

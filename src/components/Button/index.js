@@ -1,5 +1,4 @@
 import React from 'react';
-import ButtonCss from './Button.css';
 
 function Button(props) {
 	if (props.disabled) {
