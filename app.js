@@ -1,28 +1,21 @@
-var express = require('express');
-var debug = require('debug');
-var path = require('path');
-var mongoose = require('mongoose');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var stylus = require('stylus');
-var configs = require('./configs');
+const bodyParser = require('body-parser');
+const configs = require('./configs');
+const cookieParser = require('cookie-parser');
+const express = require('express');
+const logger = require('morgan');
+const mongoose = require('mongoose');
+const path = require('path');
+const stylus = require('stylus');
+const user = require('./routes/user');
 
-var user = require('./routes/user');
-
-var app = express();
+const app = express();
 
 // create db connection
-var dbUri = configs.get('dburi');
+const dbUri = configs.get('dburi');
 
 if (mongoose.connection.readyState !== 1) {
-	mongoose.connect(dbUri, {useMongoClient: true});
+	mongoose.connect(dbUri, { useMongoClient: true });
 }
-
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -54,7 +47,7 @@ app.use(function (err, req, res, next) {
 
 	// render the error page
 	res.status(err.status || 500);
-	res.render('error');
+	res.send({ error: err.message });
 });
 
 module.exports = app;
