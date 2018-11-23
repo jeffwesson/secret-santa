@@ -1,17 +1,10 @@
 import React from 'react';
 
 function Button(props) {
-	if (props.disabled) {
-		return (
-			<div id={props.id} className='Button'>
-				<input type='button' value={props.value} onClick={props.handleClick} disabled />
-			</div>
-		);
-	}
-
+	const { value, handleClick, disabled } = props;
 	return (
-		<div id={props.id} className='Button'>
-			<input type='button' value={props.value} onClick={props.handleClick} />
+		<div className='Button'>
+			<button type='button' value={value} onClick={handleClick} disabled={disabled} />
 		</div>
 	);
 }

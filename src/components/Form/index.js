@@ -6,17 +6,14 @@ import Button from '../Button';
 import { capitalize } from '../../utils';
 
 class Form extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			name: '',
-			number: '',
-			list: [
-				{ verb: 'need', item: '' },
-				{ verb: 'want', item: '' },
-				{ verb: 'love', item: '' }
-			]
-		};
+	state = {
+		name: '',
+		number: '',
+		list: [
+			{ verb: 'need', item: '' },
+			{ verb: 'want', item: '' },
+			{ verb: 'love', item: '' }
+		]
 	}
 
 	handleNameChange = name => {
@@ -133,8 +130,8 @@ class Form extends Component {
 					handleVerbChange={this.handleVerbChange}
 					removeWish={this.removeWish} />
 				<div className='ButtonController'>
-					<Button id='add-wish' value='Add Wish' handleClick={this.addNewWish} />
-					<Button id='submit-list' value='Send List' handleClick={this.submitList} disabled={!isValid} />
+					<Button value='Add Wish' handleClick={this.addNewWish} />
+					<Button value='Send List' handleClick={this.submitList} disabled={!isValid} />
 				</div>
 			</div>
 		)
