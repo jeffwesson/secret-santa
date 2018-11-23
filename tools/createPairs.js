@@ -18,7 +18,9 @@ if (mongoose.connection.readyState !== 1) {
 
 function getUsers(next) {
 	debug('getUsers');
-	models.users.find({}, (err, users) => {
+	models.users.find({
+		'updatedAt': { '$gte': new Date(`${Number(date.getFullYear()) - 1}-12-31T00:00:00.000Z`) }
+	}, (err, users) => {
 		if (err) {
 			return next(err);
 		}

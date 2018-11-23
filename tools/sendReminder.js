@@ -30,7 +30,10 @@ function getUser(next) {
 
 function getPair(id, next) {
 	debug('getPair');
-	models.pairs.findOne({ 'pair.1': id }, (err, pair) => {
+	models.pairs.findOne({
+		'pair.1': id,
+		'updatedAt': { '$gte': new Date(`${Number(date.getFullYear()) - 1}-12-31T00:00:00.000Z`) }
+	}, (err, pair) => {
 		if (err || !pair) {
 			err = err || `No pair found with id: ${id}`;
 			debug(err);
