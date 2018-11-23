@@ -30,6 +30,7 @@ function getUser(next) {
 
 function getPair(id, next) {
 	debug('getPair');
+	const date = new Date();
 	models.pairs.findOne({
 		'pair.1': id,
 		'updatedAt': { '$gte': new Date(`${Number(date.getFullYear()) - 1}-12-31T00:00:00.000Z`) }
